@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>因果与定量 · X3-F 安全分析</title>
+<meta name="description" content="针对小鹏汇天「陆地航母」X3-F 的全方位安全分析：运行概念、安全目标、FHA/STPA、FTA/CCA、关键子系统、运行风险与安全论证。">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-ch="causal">
+<div id="progress"></div>
+<div class="shell">
+  <aside>
+    <div class="brand"><i></i><span>X3-F 安全分析</span></div>
+    <ul class="side-nav">
+      <li><a href="index.html"><span class="n">00</span>总览</a></li>
+      <li><a href="system.html"><span class="n">01</span>系统与场景</a></li>
+      <li><a href="objectives.html"><span class="n">02</span>目标与规章</a></li>
+      <li><a href="hazards.html"><span class="n">03</span>危害识别</a></li>
+      <li><a href="causal.html"><span class="n">04</span>因果与定量</a></li>
+      <li><a href="subsystems.html"><span class="n">05</span>关键子系统</a></li>
+      <li><a href="ops.html"><span class="n">06</span>运行安全</a></li>
+      <li><a href="assurance.html"><span class="n">07</span>验证与论证</a></li>
+      <li><a href="conclusion.html"><span class="n">08</span>结论与来源</a></li>
+    </ul>
+    <div class="side-foot">
+      <button class="icon-btn" id="themeBtn" title="切换明暗主题（T）" aria-label="切换明暗主题">◐</button>
+      <div class="hint">← → 翻章<br>资料截至 2026-11</div>
+    </div>
+  </aside>
+  <main>
+<header class="pagehead"><div class="num">04</div><h1>因果与定量</h1><div class="kicker">冗余能不能救回来，看共因</div></header>
+<p class="lead">把上一章六条"严重度 A"的出口画成故障树，逐条追问：它到底靠几重<b>独立</b>屏障？点任一节点看它的割集与假设。结论先说：独立失效那一支小到可以忽略，真正吃掉预算的是<b>单点</b>和<b>共因</b>。</p>
+
+      <div class="fta-side">
+        <div class="fta">
+          <svg viewBox="0 0 920 254" role="img" aria-label="X3-F 丧失可控推力故障树">
+            <defs>
+              <marker id="arw2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                <path d="M0 0 L10 5 L0 10 z" fill="rgba(120,180,255,.5)"/>
+              </marker>
+            </defs>
+
+            <!-- top -->
+            <g class="node on" data-node="top">
+              <rect x="320" y="14" width="280" height="56" rx="9"/>
+              <text x="460" y="36" text-anchor="middle" font-size="13" fill="var(--ink)">飞行中丧失可控推力 / 失控</text>
+              <text x="460" y="56" text-anchor="middle" font-size="10.5">危机事件 · 全部灾难性路径的汇聚点</text>
+            </g>
+
+            <!-- OR gate -->
+            <path d="M436 84 Q460 118 484 84 Z" fill="rgba(255,176,32,.10)" stroke="rgba(255,176,32,.6)" stroke-width="1.2"/>
+            <text x="514" y="104" fill="var(--amber)" font-size="10.5" font-family="var(--mono)">OR</text>
+            <line class="wire" x1="460" y1="70" x2="460" y2="80"/>
+
+            <!-- bus -->
+            <line class="wire" x1="126" y1="126" x2="794" y2="126"/>
+            <line class="wire" x1="460" y1="112" x2="460" y2="126"/>
+            <line class="wire" x1="126" y1="126" x2="126" y2="146"/>
+            <line class="wire" x1="349" y1="126" x2="349" y2="146"/>
+            <line class="wire" x1="571" y1="126" x2="571" y2="146"/>
+            <line class="wire" x1="794" y1="126" x2="794" y2="146"/>
+
+            <!-- A -->
+            <g class="node" data-node="a">
+              <rect x="26" y="146" width="200" height="92" rx="9"/>
+              <text x="126" y="169" text-anchor="middle" font-size="14" fill="var(--ink2)">推力单元失效 ≥3/6</text>
+              <text x="126" y="189" text-anchor="middle" font-size="11" fill="var(--muted)">AND · 独立假设</text>
+              <text x="126" y="209" text-anchor="middle" font-size="13" font-family="var(--mono)" fill="var(--green)">≈2.5×10⁻¹²</text>
+              <text x="126" y="227" text-anchor="middle" font-size="10" fill="var(--muted)">2 副失效仍可控的推论</text>
+            </g>
+
+            <!-- B -->
+            <g class="node" data-node="b">
+              <rect x="249" y="146" width="200" height="92" rx="9"/>
+              <text x="349" y="169" text-anchor="middle" font-size="14" fill="var(--ink2)">能源丧失</text>
+              <text x="349" y="189" text-anchor="middle" font-size="11" fill="var(--red)">OR · 单点 / 共因</text>
+              <text x="349" y="209" text-anchor="middle" font-size="13" font-family="var(--mono)" fill="var(--red)">10⁻⁶ → 10⁻⁷</text>
+              <text x="349" y="227" text-anchor="middle" font-size="10" fill="var(--muted)">电池热失控 / 母线短路</text>
+            </g>
+
+            <!-- C -->
+            <g class="node" data-node="c">
+              <rect x="471" y="146" width="200" height="92" rx="9"/>
+              <text x="571" y="169" text-anchor="middle" font-size="14" fill="var(--ink2)">飞控失效</text>
+              <text x="571" y="189" text-anchor="middle" font-size="11" fill="var(--amber)">2oo3 + 共因 β</text>
+              <text x="571" y="209" text-anchor="middle" font-size="13" font-family="var(--mono)" fill="var(--amber)">2.0×10⁻⁶</text>
+              <text x="571" y="227" text-anchor="middle" font-size="10" fill="var(--muted)">β=0.02 时的示例量级</text>
+            </g>
+
+            <!-- D -->
+            <g class="node" data-node="d">
+              <rect x="694" y="146" width="200" height="92" rx="9"/>
+              <text x="794" y="169" text-anchor="middle" font-size="14" fill="var(--ink2)">结构与涵道失效</text>
+              <text x="794" y="189" text-anchor="middle" font-size="11" fill="var(--amber)">OR · 疲劳 / 异物</text>
+              <text x="794" y="209" text-anchor="middle" font-size="13" font-family="var(--mono)" fill="var(--amber)">推定 10⁻⁷</text>
+              <text x="794" y="227" text-anchor="middle" font-size="10" fill="var(--muted)">机臂 / 桨叶 / 涵道</text>
+            </g>
+          </svg>
+        </div>
+        <div class="fta-info" id="ftaInfo"></div>
+      </div>
+
+      <h3 class="sec">共因：β 因子决定这条防线是否成立</h3>
+      <p class="lead" style="margin-bottom:14px">2oo3（三取二）在独立假设下只要三套同时坏，几乎不可能；但同一套软件、同一路电源、同一个供应商，会让三套"同时坏"。β 因子就是"共因失效占总失效率的比例"。同一套硬件，β 从 0.02 降到 10⁻⁴，结论差两个数量级。</p>
+      <div class="chart-box">
+        <div class="chart-top" style="display:block">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:8px;flex-wrap:wrap">
+            <div style="font-size:13px;color:var(--muted)">共因比例 <b class="val" id="bVal" style="font-family:var(--mono);font-size:19px;color:var(--amber)">0.0200</b></div>
+            <div id="betaShare" style="font-size:12px;color:var(--muted)">共因占飞控总失效率 99%</div>
+          </div>
+          <input type="range" id="betaRange" min="0" max="100" value="89" aria-label="共因比例 β">
+          <div class="scale" style="display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--muted)">
+            <span>β = 10⁻⁵（近独立）</span><span>β = 5×10⁻²（强共因）</span>
+          </div>
+        </div>
+        <div class="tbl-wrap" style="border:none;background:transparent">
+          <table style="min-width:0">
+            <thead><tr><th>分项</th><th>估算（/ 飞行小时）</th><th>相对目标 10⁻⁹</th><th>判定</th></tr></thead>
+            <tbody>
+              <tr><td>目标（严重度 A）</td><td class="num">1.0×10⁻⁹</td><td class="num">1×</td><td class="warn">预算上限</td></tr>
+              <tr><td>2oo3 独立项 3λ²</td><td class="num" id="vInd"></td><td class="num" id="mInd"></td><td>冗余本身补不回来</td></tr>
+              <tr><td>共因项 βλ</td><td class="num" id="vCc"></td><td class="num" id="mCc"></td><td>随 β 线性变化</td></tr>
+              <tr><td>飞控合计</td><td class="num" id="vSum"></td><td class="num" id="mSum"></td><td class="bad">主要贡献项</td></tr>
+              <tr><td>电池（单点，缓解 90%）</td><td class="num" id="vBat"></td><td class="num" id="mBat"></td><td class="bad">无表决可救</td></tr>
+              <tr><td>整机合计（示例）</td><td class="num" id="vTot"></td><td class="num" id="mTot"></td><td class="bad">缺口约三个数量级</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="chart-foot" id="betaFoot"></div>
+      </div>
+      <p class="note"><b>算法与假设：</b>单套飞控失效率 λ=10⁻⁴/h（示例）；2oo3 独立项 3λ²；共因项 βλ；电池单点按 10⁻⁶/h、缓解率 90% 计 10⁻⁷；推力单元 λ=5×10⁻⁵/h、6 取 3 二项分布。全部为<b>量级演示</b>，不是 X3-F 的实际值。</p>
+
+      <h3 class="sec">CCA · 共因清单</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>共因源</th><th>波及的"冗余"</th><th>为什么危险</th><th>可用的独立性论据</th></tr></thead>
+          <tbody>
+            <tr><td>电池包 / 母线</td><td>动力 2 套、供电 2 套在物理上共用</td><td>"两套供电"若最终汇到同一电池包，等于一套</td><td>物理隔离 + 独立熔断 + 分区热障</td></tr>
+            <tr><td>飞控软件同源</td><td>飞控 3 套</td><td>同一份代码的同一种缺陷，三套同时触发</td><td>相异软件（DAL A 级可要求）、独立开发团队与工具链</td></tr>
+            <tr><td>共模电源/时钟</td><td>3 套飞控的供电与同步</td><td>单点电源故障拉垮全部通道</td><td>独立电源与独立时钟、交叉通道比较</td></tr>
+            <tr><td>GNSS 拒止 / 干扰</td><td>导航、通信、感知</td><td>单一星座与单一频点被压制</td><td>多星座 + 惯导 + 视觉/激光备份</td></tr>
+            <tr><td>涵道结冰 / 异物</td><td>同侧多副旋翼</td><td>同一气流通道内的单元同时受损</td><td>分区设计 + 防冰/除冰 + FOD 防护</td></tr>
+            <tr><td>维修与地面差错</td><td>全机</td><td>一次错误的参数复位影响所有通道</td><td>双人复核 + 自检 + 飞行前 BIT</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="sec">FMEA · 关键件（节选）</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>部件</th><th>失效模式</th><th>局部影响</th><th>上层影响</th><th>探测</th><th>缓解</th></tr></thead>
+          <tbody>
+            <tr><td>电机 / 电调</td><td>堵转、退磁、驱动管短路</td><td>单副推力丧失</td><td>差动补偿，≥3 副时失控</td><td>转速/电流/温度监控</td><td>过流保护、单元隔离、推力裕度</td></tr>
+            <tr><td>电池模组</td><td>内短路、热失控、连接件熔断</td><td>容量骤降、起火</td><td>全机失能</td><td>单体温升、电压差、气体传感</td><td>热障、泄压、熔断、独立舱、抛放（若装）</td></tr>
+            <tr><td>飞控计算机</td><td>输出卡死、位翻转、看门狗失效</td><td>单通道失效</td><td>表决降级，双故障即失控</td><td>交叉通道比较、心跳</td><td>2oo3 表决、相异软件、独立供电</td></tr>
+            <tr><td>分合锁</td><td>未锁到位、误开锁、疲劳裂纹</td><td>接口松动</td><td>空中分离 / 地面脱落</td><td>位置 + 载荷双确认</td><td>双余度锁、飞行中互锁、寿命试验</td></tr>
+            <tr><td>桨叶 / 涵道</td><td>裂纹、脱层、异物打伤</td><td>推力不平衡、振动</td><td>结构失效、二次击伤</td><td>振动谱、目视/超声检查</td><td>包容性设计、损伤容限、定期检查</td></tr>
+            <tr><td>线束 / 连接器</td><td>磨损、进水、接触不良</td><td>间歇性断电</td><td>通道随机失效，难复现</td><td>绝缘监测、导通自检</td><td>双路布线、物理分隔、防呆</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">FMEA 的价值不在表格本身，而在"探测手段"这一列——凡是只能靠<b>人眼在飞行前发现</b>的失效模式，本质上都是运行风险，不是设计已关闭的风险。</p>
+<nav class="pager"><a href="hazards.html"><span class="dir">← 上一章</span><span class="t">危害识别</span></a><a class="next" href="subsystems.html"><span class="dir">下一章 →</span><span class="t">关键子系统</span></a></nav>
+    <footer class="site">
+      <div>飞行汽车技术基础 · 课程作业-2 · 小鹏汇天「陆地航母」X3-F</div>
+      <div>单文件静态站点 · 零外部依赖 · 教学研究用途</div>
+    </footer>
+  </main>
+</div>
+<button id="top" title="回到顶部" aria-label="回到顶部">↑</button>
+<script src="assets/app.js" defer></script>
+</body>
+</html>

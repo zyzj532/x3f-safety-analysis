@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>关键子系统 · X3-F 安全分析</title>
+<meta name="description" content="针对小鹏汇天「陆地航母」X3-F 的全方位安全分析：运行概念、安全目标、FHA/STPA、FTA/CCA、关键子系统、运行风险与安全论证。">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-ch="subsystems">
+<div id="progress"></div>
+<div class="shell">
+  <aside>
+    <div class="brand"><i></i><span>X3-F 安全分析</span></div>
+    <ul class="side-nav">
+      <li><a href="index.html"><span class="n">00</span>总览</a></li>
+      <li><a href="system.html"><span class="n">01</span>系统与场景</a></li>
+      <li><a href="objectives.html"><span class="n">02</span>目标与规章</a></li>
+      <li><a href="hazards.html"><span class="n">03</span>危害识别</a></li>
+      <li><a href="causal.html"><span class="n">04</span>因果与定量</a></li>
+      <li><a href="subsystems.html"><span class="n">05</span>关键子系统</a></li>
+      <li><a href="ops.html"><span class="n">06</span>运行安全</a></li>
+      <li><a href="assurance.html"><span class="n">07</span>验证与论证</a></li>
+      <li><a href="conclusion.html"><span class="n">08</span>结论与来源</a></li>
+    </ul>
+    <div class="side-foot">
+      <button class="icon-btn" id="themeBtn" title="切换明暗主题（T）" aria-label="切换明暗主题">◐</button>
+      <div class="hint">← → 翻章<br>资料截至 2026-11</div>
+    </div>
+  </aside>
+  <main>
+<header class="pagehead"><div class="num">05</div><h1>关键子系统</h1><div class="kicker">七个战场，七种不同的打法</div></header>
+<p class="lead">同一套"冗余"话术套不到所有子系统上。电池要的是<b>包容</b>，推力要的是<b>裕度</b>，飞控要的是<b>独立性</b>，分合要的是<b>互锁</b>，结构要的是<b>吸能</b>，软件要的是<b>确定性</b>，人因要的是<b>时间</b>。点标签切换。</p>
+
+      <div class="tabs" role="tablist">
+        <button class="tab on" data-tab="b1" role="tab">电池 / 热失控</button>
+        <button class="tab" data-tab="b2" role="tab">电推进 / 涵道</button>
+        <button class="tab" data-tab="b3" role="tab">飞控 / 作动</button>
+        <button class="tab" data-tab="b4" role="tab">分合机构</button>
+        <button class="tab" data-tab="b5" role="tab">结构 / 坠撞</button>
+        <button class="tab" data-tab="b6" role="tab">软件 / 感知</button>
+        <button class="tab" data-tab="b7" role="tab">人因 / 训练</button>
+      </div>
+
+      <div class="panel" data-panel="b1">
+        <div class="grid g2">
+          <div class="card"><span class="tag red">链条</span><h4>热失控不是"起火"，是"蔓延"</h4><p>单体内部短路 → 产气升温 → 泄压喷发 → 相邻单体被加热 → 模组连锁 → 母线失电 → 推力归零。真正要论证的不是"不着火"，而是<b>蔓延不可达</b>，以及失去一部分容量后仍能安全降落。</p></div>
+          <div class="card"><span class="tag">标尺差异</span><h4>车规要"5 分钟逃生"，航空要"还能飞"</h4><p>GB 38031 的热扩散要求是给乘员留出逃生时间；航空的逻辑是失效后仍须保持可控飞行与着陆能力。这意味着同样的电芯，在航空上需要更强的分区、熔断与独立供电。</p></div>
+          <div class="card"><span class="tag amber">季节性</span><h4>低温掉容是航程裕度的隐形杀手</h4><p>-10 ℃ 下可用容量与放电功率同时下降，"满电 6 次飞行"的承诺在冬季会打折。返航裕度如果按常温标定，冬季就会出现"计划内却回不来"的运行风险。</p></div>
+          <div class="card"><span class="tag amber">补能</span><h4>营地快充把风险从空中搬到地面</h4><p>高倍率充电的产热与析锂，是营地火灾的主要来源。停放充电时的第三方风险（人员、建筑）往往比飞行中更高，却常被排除在"飞行安全"之外。</p></div>
+        </div>
+        <p class="note"><b>残余风险：</b>毒烟与座舱密封；热失控后的抛放/隔离手段是否装、装在哪，公开资料未明确，按"待确认"处理。</p>
+      </div>
+
+      <div class="panel" data-panel="b2" hidden>
+        <div class="grid g2">
+          <div class="card"><span class="tag">裕度</span><h4>推重比 &gt;2 不是性能指标，是失效预算</h4><p>悬停只需推重比 1.0，余下的部分用来做机动、抗风、以及补偿失效单元。厂商公开"2 副旋翼失效仍可控"，等价于要求 ≥3 副同时失效才失控——这是第 04 章那条 10⁻¹² 的来源。</p></div>
+          <div class="card"><span class="tag">涵道</span><h4>拿重量换包容性</h4><p>涵道把桨叶包起来，降低了桨叶断裂飞出与地面人员误触的风险，也压低了高频噪声；代价是结构重量、前飞阻力，以及结冰与异物更容易在通道内积聚。不可折叠则换来了结构简单。</p></div>
+          <div class="card"><span class="tag amber">非对称</span><h4>同侧双失效比对角双失效难处理</h4><p>对角失效可以用剩余单元配平；同侧失效会同时损失滚转与俯仰的控制权限。真正需要专项验证的是<b>最不利组合</b>，而不是"任意两副"这句话。</p></div>
+          <div class="card"><span class="tag amber">环境</span><h4>高温高原让裕度缩水</h4><p>空气密度下降直接降低推力，电机与电调还要面对散热变差。厂商标称的 360 km/h、500 km 与"2 副失效可控"，都不必然在 40 ℃、2000 m 条件下成立。</p></div>
+        </div>
+        <p class="note"><b>残余风险：</b>失效瞬间的瞬态（转矩突变、机身偏航）以及随之而来的驾驶员处置，比稳态余量更难验证。</p>
+      </div>
+
+      <div class="panel" data-panel="b3" hidden>
+        <div class="grid g2">
+          <div class="card"><span class="tag">架构</span><h4>3 套飞控不是"三保险"，是"两重容错"</h4><p>2oo3 表决在单通道失效后降为 2oo2——此时已不具备容错能力，必须限制继续飞行。所以"3 套"的正确表述是：能容忍一次故障，第二次故障就是危险状态。</p></div>
+          <div class="card"><span class="tag red">真正的软肋</span><h4>三套飞控的独立性靠什么证明</h4><p>如果三套跑同一份软件、共用一路电源与一个时钟，那它们在共因面前是一套。DAL A 级别的独立性需要相异软件、独立供电、独立时钟与交叉比较，且要有 CCA 证据——这些都不在公开资料里。</p></div>
+          <div class="card"><span class="tag">控制方式</span><h4>差动推力：没有舵面，全靠转速</h4><p>六轴六桨靠转速差产生力矩，控制带宽受电机响应与桨叶惯量限制。姿态控制的权限在低转速段最弱，这决定了它不能像直升机那样做大幅度机动。</p></div>
+          <div class="card"><span class="tag amber">包线</span><h4>包线保护既是安全网，也是新风险</h4><p>飞控限制姿态与下降率，能防止驾驶员把飞机飞进不可恢复状态；但保护逻辑在传感器故障时会"锁定"错误姿态。保护越强，对传感器可信度的依赖越深。</p></div>
+        </div>
+        <p class="note"><b>残余风险：</b>传感器共模（IMU 同批次、同安装基座）与软件共模，是 2oo3 架构最常见的两个漏洞。</p>
+      </div>
+
+      <div class="panel" data-panel="b4" hidden>
+        <div class="grid g2">
+          <div class="card"><span class="tag red">唯一耦合点</span><h4>它必须"想分开时能分开，想锁住时绝不分"</h4><p>这是全机唯一同时承担两种相反安全要求的机构：地面要可靠解锁、空中要绝对锁死。设计上通常用双余度锁 + 位置与载荷双确认 + 飞控内互锁，且互锁优先级高于任何人工指令。</p></div>
+          <div class="card"><span class="tag">证据</span><h4>"不会空中分离"需要一整套论证</h4><p>至少包括：FMEA（锁失效模式）、CCA（共因，如共用液压/电源/信号）、寿命与疲劳试验（每日分合的累积循环）、误操作试验（互锁被绕过的路径）。这是适航上的全新对象，没有现成条款。</p></div>
+          <div class="card"><span class="tag amber">地面侧</span><h4>装载后重心升高，行驶稳定性变差</h4><p>把飞行体顶到车顶，整车质心显著上移、侧风面积增大。急弯、侧风、紧急制动下的侧翻风险属于车规范畴，但由航空部件引起，正好落在两套体系的缝里。</p></div>
+          <div class="card"><span class="tag amber">公差</span><h4>5 分钟全自动对接的隐藏成本</h4><p>自动对准依赖视觉/机械导向，累积公差、风载、地面不平等都会引入偏差。偏差被结构"硬吃"下来，就变成锁止机构的预紧与疲劳。</p></div>
+        </div>
+        <p class="note"><b>残余风险：</b>微动开关类"到位信号"的早闭（见 STPA 表），是目前公开信息里最难排除的一条路径。</p>
+      </div>
+
+      <div class="panel" data-panel="b5" hidden>
+        <div class="grid g2">
+          <div class="card"><span class="tag">准则</span><h4>坠撞生存性要按"可生存但机体损毁"设计</h4><p>通航常见的坠撞准则量级是 7–9 m/s 垂直速度（约 25–30 ft/s，推定）：座椅、约束、起落架与机身压溃段共同吸收能量，目标是保住座舱容积而不是保住飞机。</p></div>
+          <div class="card"><span class="tag">材料</span><h4>碳纤维强，但不"吸能"</h4><p>复合材料比强度高，压溃时却是脆性断裂、吸能效率低且难以预测。这就是为什么坠撞设计常要专门的吸能结构（金属蜂窝、可压溃管），而不能只靠机身本体。</p></div>
+          <div class="card"><span class="tag amber">出口</span><h4>双人座舱的应急离机</h4><p>坠撞后舱门变形、倒扣、落水是三个独立场景。没有弹射座椅（也基本不可能有），唯一的冗余是"整机降落伞 + 抗坠撞结构 + 快速离机"三者叠加。</p></div>
+          <div class="card"><span class="tag amber">伞</span><h4>超低空开伞的时间包线极窄</h4><p>汇天公开过"超低空整机多伞救生系统"，并在 X2 上完成 50 m 开伞试验。50 m 高度自由落体约 3.2 s，开伞、充气、减速都要在这段时间内完成——这是一项"有效但窗口很窄"的兜底，不能当主要防线。</p></div>
+        </div>
+        <p class="note"><b>残余风险：</b>X3-F 是否装伞、装几具、最低开伞高度，公开资料未见明确说明，只能按"待确认"处理。</p>
+      </div>
+
+      <div class="panel" data-panel="b6" hidden>
+        <div class="grid g2">
+          <div class="card"><span class="tag">等级</span><h4>DAL A 的软件，测试覆盖率要"结构全覆盖"</h4><p>DO-178C 的 DAL A 要求 MC/DC 级别的覆盖、独立验证、工具鉴定。对一个把操纵、包线保护、自动着陆都写进同一套软件的产品，这是审定工作量的大头。</p></div>
+          <div class="card"><span class="tag red">预期功能安全</span><h4>航空没有 ISO 21448，但有等价物</h4><p>地面交通用 SOTIF 处理"没坏但不够好"；航空用运行限制 + 包线保护 + 场景验证承担同样的角色。差别在于：航空更倾向于<b>禁止进入</b>，而不是在功能上兜住。</p></div>
+          <div class="card"><span class="tag amber">感知</span><h4>细电线、逆光、雾，是视觉方案的死区</h4><p>低空环境的典型障碍不是汽车，而是电线、塔吊、鸟群与玻璃幕墙反光。毫米波对细线不敏感，视觉对逆光失效——多传感器融合解决的是"概率"，不是"确定性"。</p></div>
+          <div class="card"><span class="tag amber">更新</span><h4>OTA 与适航天然冲突</h4><p>汽车可以按月 OTA；航空的软件更改要重新走审定或按批准的程序管理。产品节奏越快，越容易在这条线上出问题。</p></div>
+        </div>
+        <p class="note"><b>残余风险：</b>未定义场景（unknown unknowns）无法被 FHA 穷举，只能靠运行限制收窄暴露面。</p>
+      </div>
+
+      <div class="panel" data-panel="b7" hidden>
+        <div class="grid g2">
+          <div class="card"><span class="tag">窗口</span><h4>低空失控，留给人的时间只有几秒</h4><p>以 50 m 高度、3 m/s 下降率估算，触地前约 16 s；扣掉感知、判断、动作，实际可用决策时间不到 10 s。这跟地面驾驶"看到再踩刹车"完全不是一个量级。</p></div>
+          <div class="card"><span class="tag">单杆</span><h4>降低门槛，也降低了对异常的感知</h4><p>"四轴合一"单杆把四个通道压成一个直觉映射，新手更快上手；代价是驾驶员看不到单个通道的状态，一旦映射逻辑出错，人的纠错能力被削弱。</p></div>
+          <div class="card"><span class="tag amber">训练</span><h4>私人娱乐的执照路径尚未完全对齐</h4><p>课程材料指出：现有飞行员执照体系无法完全适配飞行汽车。私照/运动照的训练大纲里没有"分合操作""地面行驶-飞行切换"这些科目。</p></div>
+          <div class="card"><span class="tag amber">乘客</span><h4>第二个人也是人因变量</h4><p>双座产品的乘客会分散注意力、提问、触碰界面。座舱设计要把"乘客可触及"的范围当成潜在误操作源来处理。</p></div>
+        </div>
+        <p class="note"><b>残余风险：</b>训练不足导致的误用，是 SOTIF 意义上的"可预见误用"，必须在 HMI 与互锁上兜住，而不是靠"说明书里写了"。</p>
+      </div>
+<nav class="pager"><a href="causal.html"><span class="dir">← 上一章</span><span class="t">因果与定量</span></a><a class="next" href="ops.html"><span class="dir">下一章 →</span><span class="t">运行安全</span></a></nav>
+    <footer class="site">
+      <div>飞行汽车技术基础 · 课程作业-2 · 小鹏汇天「陆地航母」X3-F</div>
+      <div>单文件静态站点 · 零外部依赖 · 教学研究用途</div>
+    </footer>
+  </main>
+</div>
+<button id="top" title="回到顶部" aria-label="回到顶部">↑</button>
+<script src="assets/app.js" defer></script>
+</body>
+</html>

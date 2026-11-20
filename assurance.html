@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>验证与安全论证 · X3-F 安全分析</title>
+<meta name="description" content="针对小鹏汇天「陆地航母」X3-F 的全方位安全分析：运行概念、安全目标、FHA/STPA、FTA/CCA、关键子系统、运行风险与安全论证。">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-ch="assurance">
+<div id="progress"></div>
+<div class="shell">
+  <aside>
+    <div class="brand"><i></i><span>X3-F 安全分析</span></div>
+    <ul class="side-nav">
+      <li><a href="index.html"><span class="n">00</span>总览</a></li>
+      <li><a href="system.html"><span class="n">01</span>系统与场景</a></li>
+      <li><a href="objectives.html"><span class="n">02</span>目标与规章</a></li>
+      <li><a href="hazards.html"><span class="n">03</span>危害识别</a></li>
+      <li><a href="causal.html"><span class="n">04</span>因果与定量</a></li>
+      <li><a href="subsystems.html"><span class="n">05</span>关键子系统</a></li>
+      <li><a href="ops.html"><span class="n">06</span>运行安全</a></li>
+      <li><a href="assurance.html"><span class="n">07</span>验证与论证</a></li>
+      <li><a href="conclusion.html"><span class="n">08</span>结论与来源</a></li>
+    </ul>
+    <div class="side-foot">
+      <button class="icon-btn" id="themeBtn" title="切换明暗主题（T）" aria-label="切换明暗主题">◐</button>
+      <div class="hint">← → 翻章<br>资料截至 2026-11</div>
+    </div>
+  </aside>
+  <main>
+<header class="pagehead"><div class="num">07</div><h1>验证与安全论证</h1><div class="kicker">证据在哪儿</div></header>
+<p class="lead">安全论证（GSN）的结构是"目标—策略—子目标—证据"。它的价值在于把"我觉得安全"变成"哪条证据支持哪个结论"。下面这张图按这个结构搭，右侧的缺口清单是目前公开信息里空着的位置。</p>
+
+      <div class="gns">
+        <svg viewBox="0 0 900 420" role="img" aria-label="X3-F 安全论证（GSN）结构">
+          <defs>
+            <marker id="arw3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M0 0 L10 5 L0 10 z" fill="rgba(120,180,255,.5)"/>
+            </marker>
+          </defs>
+
+          <g class="gbox">
+            <rect x="290" y="10" width="320" height="58" rx="9" stroke="rgba(56,225,255,.6)"/>
+            <text x="306" y="30" class="gt">GOAL G1</text>
+            <text x="450" y="48" text-anchor="middle" font-size="12.5" fill="var(--ink)">X3-F 在拟定运行场景下具有可接受的安全性</text>
+          </g>
+          <g class="gbox">
+            <rect x="270" y="86" width="360" height="46" rx="9"/>
+            <text x="286" y="104" class="gt">STRATEGY S1</text>
+            <text x="450" y="122" text-anchor="middle" font-size="11.5">按 ARP4754A / 4761 完成 FHA → PSSA → SSA，并用运行限制收窄暴露</text>
+          </g>
+          <g class="gbox">
+            <rect x="16" y="160" width="270" height="56" rx="9"/>
+            <text x="32" y="178" class="gt">GOAL G2</text>
+            <text x="151" y="196" text-anchor="middle" font-size="11.5">危害已被完整识别</text>
+            <text x="151" y="211" text-anchor="middle" font-size="10" fill="var(--muted)">FHA · STPA · HAZOP</text>
+          </g>
+          <g class="gbox">
+            <rect x="315" y="160" width="270" height="56" rx="9"/>
+            <text x="331" y="178" class="gt">GOAL G3</text>
+            <text x="450" y="196" text-anchor="middle" font-size="11.5">每条灾难性路径 ≤10⁻⁹/h</text>
+            <text x="450" y="211" text-anchor="middle" font-size="10" fill="var(--muted)">FTA · CCA · FMEA · 试验</text>
+          </g>
+          <g class="gbox">
+            <rect x="614" y="160" width="270" height="56" rx="9"/>
+            <text x="630" y="178" class="gt">GOAL G4</text>
+            <text x="749" y="196" text-anchor="middle" font-size="11.5">剩余风险被运行限制控制</text>
+            <text x="749" y="211" text-anchor="middle" font-size="10" fill="var(--muted)">空域 · 场地 · 维护 · 训练</text>
+          </g>
+
+          <g class="gbox">
+            <rect x="16" y="248" width="270" height="50" rx="8" stroke-dasharray="4 3"/>
+            <text x="32" y="266" class="gt">EVIDENCE E1</text>
+            <text x="151" y="286" text-anchor="middle" font-size="10.5">危害清单与严重度分级记录</text>
+          </g>
+          <g class="gbox">
+            <rect x="315" y="248" width="270" height="50" rx="8" stroke-dasharray="4 3"/>
+            <text x="331" y="266" class="gt">EVIDENCE E2</text>
+            <text x="450" y="286" text-anchor="middle" font-size="10.5">失效概率计算 + 台架/试飞证据</text>
+          </g>
+          <g class="gbox">
+            <rect x="614" y="248" width="270" height="50" rx="8" stroke-dasharray="4 3"/>
+            <text x="630" y="266" class="gt">EVIDENCE E3</text>
+            <text x="749" y="286" text-anchor="middle" font-size="10.5">运行手册 · 限制 · 训练大纲</text>
+          </g>
+
+          <g class="wire" marker-end="url(#arw3)">
+            <line x1="450" y1="68" x2="450" y2="82"/>
+            <line x1="450" y1="132" x2="450" y2="146"/>
+            <line x1="151" y1="146" x2="749" y2="146"/>
+            <line x1="151" y1="146" x2="151" y2="156"/>
+            <line x1="450" y1="146" x2="450" y2="156"/>
+            <line x1="749" y1="146" x2="749" y2="156"/>
+            <line x1="151" y1="216" x2="151" y2="244"/>
+            <line x1="450" y1="216" x2="450" y2="244"/>
+            <line x1="749" y1="216" x2="749" y2="244"/>
+          </g>
+
+          <g class="gbox">
+            <rect x="16" y="318" width="868" height="86" rx="9" stroke="rgba(255,93,108,.45)" fill="rgba(255,93,108,.05)"/>
+            <text x="34" y="340" class="gt" fill="var(--red)">GAP · 目前公开信息中缺失的证据</text>
+            <text x="34" y="362" font-size="11.5">SSA / CCA 结论未公开 · 专用条件尚未定稿 · 分合寿命与互锁验证未见 · 整机伞构型待确认</text>
+            <text x="34" y="382" font-size="11.5">没有这四类证据，G3 只能算"有论证框架"，不能算"论证成立"</text>
+          </g>
+        </svg>
+      </div>
+
+      <h3 class="sec">证据类型与公开可见度</h3>
+      <div class="chips" id="evChips">
+        <button class="chip on" data-filter="all">全部</button>
+        <button class="chip" data-filter="seen">有公开痕迹</button>
+        <button class="chip" data-filter="none">未见公开</button>
+      </div>
+      <div class="tbl-wrap"><table id="evTable"><thead><tr><th>证据类型</th><th>验证对象</th><th>回答的问题</th><th>公开可见度</th></tr></thead>
+          <tbody>
+            <tr><td>静力 / 疲劳试验</td><td>机身、机臂、接口</td><td>极限载荷下不破坏、寿命内不裂</td><td class="warn">零星见于宣传</td></tr>
+            <tr><td>坠撞试验</td><td>座舱、座椅、约束</td><td>可生存坠撞下保座舱容积</td><td class="bad">未见公开</td></tr>
+            <tr><td>电池滥用试验</td><td>电芯、模组、包</td><td>针刺/过充/热箱后不蔓延</td><td class="bad">未见公开</td></tr>
+            <tr><td>HIRF / EMC</td><td>全机电子系统</td><td>强场下不误动作</td><td class="bad">未见公开</td></tr>
+            <tr><td>软件适航（DO-178C）</td><td>飞控、显示、BMS</td><td>DAL 等级对应的覆盖与独立性</td><td class="bad">未见公开</td></tr>
+            <tr><td>台架 / 铁鸟</td><td>飞控闭环、余度切换</td><td>故障注入后仍可控</td><td class="bad">未见公开</td></tr>
+            <tr><td>试飞（包线扩展、三高）</td><td>操稳、性能、环境适应性</td><td>设计值是否在包线内成立</td><td class="warn">有视频与"已开展"表述</td></tr>
+            <tr><td>分合寿命试验</td><td>锁止机构、导向</td><td>每日循环下的疲劳与公差</td><td class="bad">未见公开</td></tr>
+            <tr><td>整机伞试验</td><td>救生系统</td><td>最低开伞高度与下降率</td><td class="warn">X2 上完成 50 m 开伞</td></tr>
+            <tr><td>运行验证（沙盒/营地）</td><td>运行程序、人员</td><td>真实环境下的事故率</td><td class="warn">有沙盒与交付表述</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">"未见公开"不等于"没做"。但安全论证的规矩是<b>没有证据就不能主张结论</b>——这也是本页对 X3-F 的总体判断：框架齐全、方向正确、证据链至今未公开。</p>
+<nav class="pager"><a href="ops.html"><span class="dir">← 上一章</span><span class="t">运行安全</span></a><a class="next" href="conclusion.html"><span class="dir">下一章 →</span><span class="t">结论与来源</span></a></nav>
+    <footer class="site">
+      <div>飞行汽车技术基础 · 课程作业-2 · 小鹏汇天「陆地航母」X3-F</div>
+      <div>单文件静态站点 · 零外部依赖 · 教学研究用途</div>
+    </footer>
+  </main>
+</div>
+<button id="top" title="回到顶部" aria-label="回到顶部">↑</button>
+<script src="assets/app.js" defer></script>
+</body>
+</html>

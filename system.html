@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>系统与运行概念 · X3-F 安全分析</title>
+<meta name="description" content="针对小鹏汇天「陆地航母」X3-F 的全方位安全分析：运行概念、安全目标、FHA/STPA、FTA/CCA、关键子系统、运行风险与安全论证。">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-ch="system">
+<div id="progress"></div>
+<div class="shell">
+  <aside>
+    <div class="brand"><i></i><span>X3-F 安全分析</span></div>
+    <ul class="side-nav">
+      <li><a href="index.html"><span class="n">00</span>总览</a></li>
+      <li><a href="system.html"><span class="n">01</span>系统与场景</a></li>
+      <li><a href="objectives.html"><span class="n">02</span>目标与规章</a></li>
+      <li><a href="hazards.html"><span class="n">03</span>危害识别</a></li>
+      <li><a href="causal.html"><span class="n">04</span>因果与定量</a></li>
+      <li><a href="subsystems.html"><span class="n">05</span>关键子系统</a></li>
+      <li><a href="ops.html"><span class="n">06</span>运行安全</a></li>
+      <li><a href="assurance.html"><span class="n">07</span>验证与论证</a></li>
+      <li><a href="conclusion.html"><span class="n">08</span>结论与来源</a></li>
+    </ul>
+    <div class="side-foot">
+      <button class="icon-btn" id="themeBtn" title="切换明暗主题（T）" aria-label="切换明暗主题">◐</button>
+      <div class="hint">← → 翻章<br>资料截至 2026-11</div>
+    </div>
+  </aside>
+  <main>
+<header class="pagehead"><div class="num">01</div><h1>系统与运行概念</h1><div class="kicker">安全边界是从场景里长出来的</div></header>
+<p class="lead">点图中任一部件看它的安全职责。分体式的要害不在"会飞"，而在<b>飞行体与陆行体之间那个可拆的接口</b>——它同时属于汽车和航空两套体系，却不对应任何一方的现成条款。</p>
+      <div class="decomp">
+        <div class="viz">
+          <svg viewBox="72 16 532 376" role="img" aria-label="X3-F 系统分解：飞行体、分合机构、陆行体与三条安全边界">
+            <defs>
+              <linearGradient id="gBody" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#1b2c46"/><stop offset="1" stop-color="#0d1626"/>
+              </linearGradient>
+              <radialGradient id="gRotor" cx="50%" cy="50%" r="50%">
+                <stop offset="0" stop-color="rgba(56,225,255,.30)"/>
+                <stop offset="1" stop-color="rgba(56,225,255,.10)"/>
+              </radialGradient>
+            </defs>
+
+            <line x1="84" y1="352" x2="584" y2="352" stroke="rgba(120,180,255,.22)" stroke-width="1"/>
+            <text x="86" y="370" class="lbl" font-size="9.5" letter-spacing="2">GROUND</text>
+
+            <!-- 安全边界标注（右侧括注，避免压住图形） -->
+            <g fill="none" stroke-width="1.2">
+              <path d="M552 52 v132 M548 52 h8 M548 184 h8" stroke="rgba(255,93,108,.55)"/>
+              <path d="M552 200 v32 M548 200 h8 M548 232 h8" stroke="rgba(62,224,143,.5)"/>
+              <path d="M552 250 v78 M548 250 h8 M548 328 h8" stroke="rgba(56,225,255,.45)"/>
+            </g>
+            <text x="576" y="118" transform="rotate(-90 576 118)" text-anchor="middle" font-size="10" fill="rgba(255,93,108,.9)" font-family="var(--sans)">航空边界</text>
+            <text x="576" y="216" transform="rotate(-90 576 216)" text-anchor="middle" font-size="10" fill="rgba(62,224,143,.9)" font-family="var(--sans)">接口</text>
+            <text x="576" y="289" transform="rotate(-90 576 289)" text-anchor="middle" font-size="10" fill="rgba(56,225,255,.85)" font-family="var(--sans)">机动车边界</text>
+
+            <!-- 飞行体 -->
+            <g class="part" data-part="air" id="partAir">
+              <g class="air-anim">
+                <g stroke="rgba(56,225,255,.34)" stroke-width="1">
+                  <line x1="310" y1="104" x2="430" y2="104"/>
+                  <line x1="310" y1="104" x2="370" y2="70"/>
+                  <line x1="310" y1="104" x2="250" y2="70"/>
+                  <line x1="310" y1="104" x2="190" y2="104"/>
+                  <line x1="310" y1="104" x2="250" y2="138"/>
+                  <line x1="310" y1="104" x2="370" y2="138"/>
+                </g>
+                <g fill="url(#gRotor)" stroke="rgba(56,225,255,.9)" stroke-width="1.4">
+                  <circle cx="430" cy="104" r="14"/>
+                  <circle cx="370" cy="70"  r="14"/>
+                  <circle cx="250" cy="70"  r="14"/>
+                  <circle cx="190" cy="104" r="14"/>
+                  <circle cx="250" cy="138" r="14"/>
+                  <circle cx="370" cy="138" r="14"/>
+                </g>
+                <ellipse cx="310" cy="104" rx="70" ry="25" fill="none" stroke="rgba(56,225,255,.20)"/>
+                <ellipse cx="310" cy="104" rx="45" ry="16" fill="url(#gBody)" stroke="rgba(56,225,255,.85)" stroke-width="1.4"/>
+                <text x="310" y="108" class="lbl" text-anchor="middle" font-size="9.5">X3-F</text>
+                <text x="310" y="176" class="lbl" text-anchor="middle" font-size="12">飞行体 · 六轴六桨双涵道</text>
+              </g>
+              <rect class="hit" x="170" y="46" width="280" height="146" rx="14"/>
+            </g>
+
+            <!-- 分合机构 -->
+            <g class="part" data-part="dock" id="partDock">
+              <rect x="272" y="204" width="76" height="26" rx="6" fill="rgba(255,176,32,.12)" stroke="rgba(255,176,32,.85)" stroke-width="1.2" stroke-dasharray="4 3"/>
+              <text x="310" y="221" class="lbl" text-anchor="middle" font-size="10" fill="rgba(255,196,90,.98)">分合机构</text>
+              <text x="266" y="221" class="lbl" text-anchor="end" font-size="11" fill="rgba(255,176,32,.95)">5 min 自动分合</text>
+              <rect class="hit" x="150" y="196" width="220" height="42" rx="8"/>
+            </g>
+
+            <!-- 陆行体 -->
+            <g class="part" data-part="ground" id="partGround">
+              <rect x="150" y="244" width="280" height="18" rx="8" fill="#0b1524" stroke="rgba(56,225,255,.28)"/>
+              <rect x="108" y="260" width="404" height="52" rx="16" fill="url(#gBody)" stroke="rgba(56,225,255,.75)" stroke-width="1.5"/>
+              <text x="310" y="292" class="lbl" text-anchor="middle" font-size="12">陆行体 · 三轴六轮 / 增程补能</text>
+              <g fill="#0b1524" stroke="rgba(56,225,255,.5)" stroke-width="1.2">
+                <circle cx="168" cy="314" r="14"/><circle cx="310" cy="314" r="14"/><circle cx="452" cy="314" r="14"/>
+              </g>
+              <g fill="rgba(56,225,255,.4)">
+                <circle cx="168" cy="314" r="4"/><circle cx="310" cy="314" r="4"/><circle cx="452" cy="314" r="4"/>
+              </g>
+              <rect class="hit" x="98" y="238" width="424" height="88" rx="14"/>
+            </g>
+          </svg>
+        </div>
+        <div class="spec" id="spec">
+          <h4 id="specTitle">飞行体 X3-F</h4>
+          <div class="role" id="specRole">按航空器管理</div>
+          <dl id="specList"></dl>
+          <div class="hint">点击左侧任一部件切换</div>
+        </div>
+      </div>
+
+      <h3 class="sec">一次完整使用循环：飞行只占很短一段</h3>
+      <p class="lead" style="margin-bottom:14px">点任一阶段看暴露时长与主要危害。这张横条图是后面所有定量讨论的分母——飞行小时少，意味着"每飞行小时事故率"这个指标会被分母放大，必须同时看"每次飞行"的风险。</p>
+      <div class="phases" id="phases">
+        <div class="ph" data-ph="0"><div class="px">T0</div><div class="pn">地面行驶</div></div>
+        <div class="ph" data-ph="1"><div class="px">T1</div><div class="pn">分合 / 装载</div></div>
+        <div class="ph" data-ph="2"><div class="px">T2</div><div class="pn">起飞悬停</div></div>
+        <div class="ph" data-ph="3"><div class="px">T3</div><div class="pn">爬升巡航</div></div>
+        <div class="ph" data-ph="4"><div class="px">T4</div><div class="pn">进近着陆</div></div>
+        <div class="ph" data-ph="5"><div class="px">T5</div><div class="pn">收纳固定</div></div>
+        <div class="ph" data-ph="6"><div class="px">T6</div><div class="pn">补能与停放</div></div>
+      </div>
+      <div class="ph-detail" id="phDetail"></div>
+
+      <div class="grid g2" style="margin-top:18px">
+        <div class="card"><span class="tag amber">口径判断</span><h4>"私人娱乐"不是降低要求，是换了风险承受主体</h4><p>厂商与局方把场景限定在私人娱乐/体验，意味着风险主要由知情同意的乘员承担，第三方地面风险被运行限制压住。这解释了为什么它能比"载客运营"更快推进审定，但也意味着：一旦用于商业载客，整套安全论证要重做。</p></div>
+        <div class="card"><span class="tag red">结构性风险</span><h4>接口是唯一"两套体系都不覆盖"的地方</h4><p>飞行体归航空、陆行体归机动车，而两者结合后的运输状态（装载后行驶）既不是纯汽车也不是纯飞机。这个边界上的失效——锁未到位、行驶中松动、误分离——没有现成条款可援引。</p></div>
+      </div>
+<nav class="pager"><a href="index.html"><span class="dir">← 上一章</span><span class="t">总览</span></a><a class="next" href="objectives.html"><span class="dir">下一章 →</span><span class="t">审定基础与安全目标</span></a></nav>
+    <footer class="site">
+      <div>飞行汽车技术基础 · 课程作业-2 · 小鹏汇天「陆地航母」X3-F</div>
+      <div>单文件静态站点 · 零外部依赖 · 教学研究用途</div>
+    </footer>
+  </main>
+</div>
+<button id="top" title="回到顶部" aria-label="回到顶部">↑</button>
+<script src="assets/app.js" defer></script>
+</body>
+</html>

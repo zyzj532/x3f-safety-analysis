@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>运行安全 · X3-F 安全分析</title>
+<meta name="description" content="针对小鹏汇天「陆地航母」X3-F 的全方位安全分析：运行概念、安全目标、FHA/STPA、FTA/CCA、关键子系统、运行风险与安全论证。">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-ch="ops">
+<div id="progress"></div>
+<div class="shell">
+  <aside>
+    <div class="brand"><i></i><span>X3-F 安全分析</span></div>
+    <ul class="side-nav">
+      <li><a href="index.html"><span class="n">00</span>总览</a></li>
+      <li><a href="system.html"><span class="n">01</span>系统与场景</a></li>
+      <li><a href="objectives.html"><span class="n">02</span>目标与规章</a></li>
+      <li><a href="hazards.html"><span class="n">03</span>危害识别</a></li>
+      <li><a href="causal.html"><span class="n">04</span>因果与定量</a></li>
+      <li><a href="subsystems.html"><span class="n">05</span>关键子系统</a></li>
+      <li><a href="ops.html"><span class="n">06</span>运行安全</a></li>
+      <li><a href="assurance.html"><span class="n">07</span>验证与论证</a></li>
+      <li><a href="conclusion.html"><span class="n">08</span>结论与来源</a></li>
+    </ul>
+    <div class="side-foot">
+      <button class="icon-btn" id="themeBtn" title="切换明暗主题（T）" aria-label="切换明暗主题">◐</button>
+      <div class="hint">← → 翻章<br>资料截至 2026-11</div>
+    </div>
+  </aside>
+  <main>
+<header class="pagehead"><div class="num">06</div><h1>运行安全</h1><div class="kicker">设计管不到的那一半</div></header>
+<p class="lead">适航证只证明"设计在限定条件下安全"，不证明"这一次飞行安全"。运行侧的四件事——起降场、空域、维护、应急——决定实际风险。下面的矩阵把危害按"可能性 × 严重度"落位，点圆点看处置。纵轴向上为可能性升高，横轴向右为严重度升高；严重度为 A（灾难）的格子一律按红色以上处理，不管乘积多小。</p>
+
+      <div style="font-size:11.5px;color:var(--muted);margin-bottom:6px">↑ 可能性（上高下低）　　严重度 →（右高左低）</div>
+      <div class="mx5" id="riskMatrix" style="grid-template-columns:74px repeat(4,1fr)" aria-label="风险矩阵"></div>
+      <div class="mx-detail" id="mxDetail"></div>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;font-size:11.5px;color:var(--muted);margin-top:8px">
+        <span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:rgba(62,224,143,.35);margin-right:5px;vertical-align:middle"></i>低（≤4）</span>
+        <span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:rgba(62,224,143,.55);margin-right:5px;vertical-align:middle"></i>中（5–8）</span>
+        <span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:rgba(255,176,32,.5);margin-right:5px;vertical-align:middle"></i>高（9–12）</span>
+        <span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:rgba(255,93,108,.55);margin-right:5px;vertical-align:middle"></i>严重（13–16）</span>
+        <span><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:rgba(255,93,108,.8);margin-right:5px;vertical-align:middle"></i>不可接受（≥17）</span>
+      </div>
+
+      <h3 class="sec">运行限制：把风险"框"在外面</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>限制项</th><th>典型要求（推定）</th><th>为什么必须有</th><th>突破后的后果</th></tr></thead>
+          <tbody>
+            <tr><td>昼间目视</td><td>仅昼间、VFR、云底高与能见度达标</td><td>感知与避让依赖人眼，夜间无可靠手段</td><td>空中相撞、误入障碍</td></tr>
+            <tr><td>风速 / 阵风</td><td>起飞着陆段风速上限、侧风分量限制</td><td>六轴构型抗风能力有限，余量被失效补偿吃掉</td><td>姿态失控、重着陆</td></tr>
+            <tr><td>空域与航线</td><td>隔离空域、预先申报、避开人口密集区</td><td>第三方地面风险的主要控制手段</td><td>坠撞造成地面伤亡</td></tr>
+            <tr><td>起降场</td><td>净空、安全间距、消防与围界</td><td>起降段是失效最集中的阶段</td><td>伤及地面人员、火灾蔓延</td></tr>
+            <tr><td>维护</td><td>航前/航后检查、周期检查、电池健康度</td><td>分合机构与电池是消耗件</td><td>带故障起飞</td></tr>
+            <tr><td>人员资质</td><td>驾驶资质、营地操作员培训</td><td>单驾驶员体系下，人的能力就是最后一道屏障</td><td>误操作、处置失当</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="grid g2" style="margin-top:16px">
+        <div class="card"><span class="tag red">第三方风险</span><h4>它飞在别人头顶上</h4><p>私人娱乐飞行若发生在营地/景区，地面有非乘员人群。航空的 10⁻⁹ 是对乘员说的，对地面第三方通常另有更严的暴露控制。这条线靠"隔离空域 + 场地围界"守，而不是靠冗余。</p></div>
+        <div class="card"><span class="tag amber">应急</span><h4>救援响应时间决定后果等级</h4><p>同样的坠撞，5 分钟内到场与 30 分钟到场，结局不同。营地消防、破拆工具、水域救援能力，属于运行安全论证的一部分，却极少出现在产品宣传里。</p></div>
+      </div>
+<nav class="pager"><a href="subsystems.html"><span class="dir">← 上一章</span><span class="t">关键子系统</span></a><a class="next" href="assurance.html"><span class="dir">下一章 →</span><span class="t">验证与安全论证</span></a></nav>
+    <footer class="site">
+      <div>飞行汽车技术基础 · 课程作业-2 · 小鹏汇天「陆地航母」X3-F</div>
+      <div>单文件静态站点 · 零外部依赖 · 教学研究用途</div>
+    </footer>
+  </main>
+</div>
+<button id="top" title="回到顶部" aria-label="回到顶部">↑</button>
+<script src="assets/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>结论与来源 · X3-F 安全分析</title>
+<meta name="description" content="针对小鹏汇天「陆地航母」X3-F 的全方位安全分析：运行概念、安全目标、FHA/STPA、FTA/CCA、关键子系统、运行风险与安全论证。">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-ch="conclusion">
+<div id="progress"></div>
+<div class="shell">
+  <aside>
+    <div class="brand"><i></i><span>X3-F 安全分析</span></div>
+    <ul class="side-nav">
+      <li><a href="index.html"><span class="n">00</span>总览</a></li>
+      <li><a href="system.html"><span class="n">01</span>系统与场景</a></li>
+      <li><a href="objectives.html"><span class="n">02</span>目标与规章</a></li>
+      <li><a href="hazards.html"><span class="n">03</span>危害识别</a></li>
+      <li><a href="causal.html"><span class="n">04</span>因果与定量</a></li>
+      <li><a href="subsystems.html"><span class="n">05</span>关键子系统</a></li>
+      <li><a href="ops.html"><span class="n">06</span>运行安全</a></li>
+      <li><a href="assurance.html"><span class="n">07</span>验证与论证</a></li>
+      <li><a href="conclusion.html"><span class="n">08</span>结论与来源</a></li>
+    </ul>
+    <div class="side-foot">
+      <button class="icon-btn" id="themeBtn" title="切换明暗主题（T）" aria-label="切换明暗主题">◐</button>
+      <div class="hint">← → 翻章<br>资料截至 2026-11</div>
+    </div>
+  </aside>
+  <main>
+<header class="pagehead"><div class="num">08</div><h1>结论与来源</h1><div class="kicker">把账收一下</div></header>
+<div class="concl" id="concl">
+        <div class="acc open">
+          <button class="acc-h" aria-expanded="true"><span class="n">01</span>架构方向是对的，缺的是证据<span class="arw">›</span></button>
+          <div class="acc-b">六轴六桨 + 2 副失效容错、飞控/供电/通信/操控多通道冗余、涵道包容，这套架构在工程上说得通。但"有几套冗余"是设计输入，"共因会不会同时打掉它们"才是安全结论——后者需要 CCA 与 SSA，目前公开渠道看不到。</div>
+        </div>
+        <div class="acc">
+          <button class="acc-h" aria-expanded="false"><span class="n">02</span>风险的重心不在单点硬件，在共因与接口<span class="arw">›</span></button>
+          <div class="acc-b">独立失效算下来小到可以忽略（10⁻¹² 量级），但只要 β 停在 10⁻²，飞控一项就能吃掉 10⁻⁶；电池只要有一个单点，10⁻⁹ 立刻失守。分合机构则是全机唯一同时承载"要能开"和"绝不能开"两种相反要求的部件，且没有现成条款可依。</div>
+        </div>
+        <div class="acc">
+          <button class="acc-h" aria-expanded="false"><span class="n">03</span>"私人娱乐"这个口径，决定了整本账的算法<span class="arw">›</span></button>
+          <div class="acc-b">风险承受主体是知情同意的乘员、飞行被限制在昼间隔离空域与营地上空、第三方暴露被场地控制——正因为如此，它不必按载客运营的完整体系去堆证据。反过来说，一旦要商业载客，场景、目标概率、DAL 分配、运行限制全部要重做，不是"升个级"。</div>
+        </div>
+        <div class="acc">
+          <button class="acc-h" aria-expanded="false"><span class="n">04</span>一句话<span class="arw">›</span></button>
+          <div class="acc-b">它更像一架"被允许更早起飞的小型有人飞行器"，而不是"被放大的消费电子"。评价它的安全水平，不该看发布会上的冗余数字，而该问三个问题：共因分析做了没有、分合机构的互锁有多硬、以及最坏那一次坠撞里人还能不能出来。</div>
+        </div>
+      </div>
+      <div class="grid g3" style="margin-top:18px">
+        <div class="card"><span class="tag">如果我是审查方</span><h4>先要三份东西</h4><p>ETA/FTA 汇总与割集清单、CCA 报告、分合机构的失效模式与互锁验证记录。这三份能看出一半的底。</p></div>
+        <div class="card"><span class="tag">如果我是买家</span><h4>先问三个问题</h4><p>伞装了没有、最低开伞高度多少；电池热失控后还能不能落；营地消防与救援几分钟到场。</p></div>
+        <div class="card"><span class="tag amber">如果我是厂商</span><h4>最该补的一块</h4><p>把"冗余"翻译成"独立性证据"。多装一套硬件容易，证明它不会被同一个原因一起打掉，才是适航的门槛。</p></div>
+      </div>
+<h3 class="sec">来源</h3>
+<div class="src-tools">
+        <input id="srcSearch" type="search" placeholder="搜索标题或站点，例如：专用条件 / 冗余 / SC-VTOL">
+        <span class="src-count" id="srcCount"></span>
+      </div>
+      <ul class="srcs" id="srcs">
+        <li><span class="idx">01</span><span>课程讲义《第四章 飞行汽车的现状及展望》（张玉新，吉林大学，2026）· 安全方法学与作业要求</span></li>
+        <li><span class="idx">02</span><span>课程讲义《第五章 飞行汽车产业分析及支撑技术》（同上）· 安全系统工程九步法、审定基础与标准</span></li>
+        <li><a href="https://www.easa.europa.eu/en/document-library/product-certification-consultations/special-condition-vtol" target="_blank" rel="noopener"><span class="idx">03</span>EASA SC-VTOL-01 专用条件（eVTOL 适航框架）</a></li>
+        <li><a href="https://www.sae.org/standards/content/arp4754a/" target="_blank" rel="noopener"><span class="idx">04</span>SAE ARP4754A 民用飞机与系统开发指南</a></li>
+        <li><a href="https://www.sae.org/standards/content/arp4761/" target="_blank" rel="noopener"><span class="idx">05</span>SAE ARP4761 民用机安全评估过程（FHA/PSSA/SSA）</a></li>
+        <li><a href="https://www.rtca.org/" target="_blank" rel="noopener"><span class="idx">06</span>RTCA DO-178C 机载软件（DAL A–D）</a></li>
+        <li><a href="http://www.caac.gov.cn/" target="_blank" rel="noopener"><span class="idx">07</span>中国民航局 · CCAR-21 民用航空产品和零部件合格审定规定</a></li>
+        <li><a href="https://www.cnstock.com/commonDetail/377540" target="_blank" rel="noopener"><span class="idx">08</span>上海证券报：X3-F 专用条件征求意见，定位私人娱乐飞行</a></li>
+        <li><a href="https://chejiahao.autohome.com.cn/info/16675705" target="_blank" rel="noopener"><span class="idx">09</span>车家号：陆地航母首飞与冗余配置（动力 2 / 飞控 3 / 供电 2 / 通信 2 / 操控 2）</a></li>
+        <li><a href="https://bbs.xiaopeng.com/article/3511676" target="_blank" rel="noopener"><span class="idx">10</span>小鹏社区：六轴六桨双涵道构型与碳纤维机身</a></li>
+        <li><a href="https://www.163.com/dy/article/IHT1N9FE05279L3C.html" target="_blank" rel="noopener"><span class="idx">11</span>网易：双旋翼失效仍可控；超低空整机多伞救生系统（X2 上 50 m 开伞）</a></li>
+        <li><a href="https://chejiahao.autohome.com.cn/info/14373926" target="_blank" rel="noopener"><span class="idx">12</span>汽车之家：早期构型口径（八组电池 / 4 轴 8 桨），用于说明构型迭代</a></li>
+        <li><a href="https://lab.autozyx.com/fundamentals-of-flying-vehicle-technology/tesla-flying-roadster/" target="_blank" rel="noopener"><span class="idx">13</span>课程给出的作业样例（Tesla Roadster 调研页）</a></li>
+      </ul>
+      <p class="note" style="margin-top:18px">标准条款内容按公开摘要与课程讲义转述，未逐条引用原文。凡本页标注「推定」「示例」的数字，均为我按构型与框架推导的量级演示，不代表厂商数据，也不构成对该型号适航符合性的判断。</p>
+<nav class="pager"><a href="assurance.html"><span class="dir">← 上一章</span><span class="t">验证与安全论证</span></a></nav>
+    <footer class="site">
+      <div>飞行汽车技术基础 · 课程作业-2 · 小鹏汇天「陆地航母」X3-F</div>
+      <div>单文件静态站点 · 零外部依赖 · 教学研究用途</div>
+    </footer>
+  </main>
+</div>
+<button id="top" title="回到顶部" aria-label="回到顶部">↑</button>
+<script src="assets/app.js" defer></script>
+</body>
+</html>

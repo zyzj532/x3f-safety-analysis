@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>审定基础与安全目标 · X3-F 安全分析</title>
+<meta name="description" content="针对小鹏汇天「陆地航母」X3-F 的全方位安全分析：运行概念、安全目标、FHA/STPA、FTA/CCA、关键子系统、运行风险与安全论证。">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body data-ch="objectives">
+<div id="progress"></div>
+<div class="shell">
+  <aside>
+    <div class="brand"><i></i><span>X3-F 安全分析</span></div>
+    <ul class="side-nav">
+      <li><a href="index.html"><span class="n">00</span>总览</a></li>
+      <li><a href="system.html"><span class="n">01</span>系统与场景</a></li>
+      <li><a href="objectives.html"><span class="n">02</span>目标与规章</a></li>
+      <li><a href="hazards.html"><span class="n">03</span>危害识别</a></li>
+      <li><a href="causal.html"><span class="n">04</span>因果与定量</a></li>
+      <li><a href="subsystems.html"><span class="n">05</span>关键子系统</a></li>
+      <li><a href="ops.html"><span class="n">06</span>运行安全</a></li>
+      <li><a href="assurance.html"><span class="n">07</span>验证与论证</a></li>
+      <li><a href="conclusion.html"><span class="n">08</span>结论与来源</a></li>
+    </ul>
+    <div class="side-foot">
+      <button class="icon-btn" id="themeBtn" title="切换明暗主题（T）" aria-label="切换明暗主题">◐</button>
+      <div class="hint">← → 翻章<br>资料截至 2026-11</div>
+    </div>
+  </aside>
+  <main>
+<header class="pagehead"><div class="num">02</div><h1>审定基础与安全目标</h1><div class="kicker">目标不是厂商定的</div></header>
+<p class="lead">安全目标由审定基础倒推。X3-F 没有现成的类别标准可套（既不是 CS-23 的常规飞机，也不是直升机），走的是 CCAR-21 下的<b>专用条件</b>路径：局方针对这一型号单独写一套要求。这套要求目前还在征求意见阶段，最终条款会直接改变整本安全账的算法。</p>
+
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>节点</th><th>时间</th><th>内容</th><th>对安全分析的意义</th></tr></thead>
+          <tbody>
+            <tr><td>TC 申请受理</td><td class="num">2024-03-21</td><td>民航中南局受理 X3-F 型号合格证申请</td><td>确定"按航空器审定"，适用 CCAR-21</td></tr>
+            <tr><td>专用条件征求意见稿</td><td class="num">2025-03</td><td>面向私人娱乐飞行；最大起飞重量 ≤960 kg；1 名驾驶员</td><td class="warn">场景与重量级决定了严重度分级与第三方风险口径</td></tr>
+            <tr><td>PC 申请受理</td><td class="num">2025-05-09</td><td>生产许可证申请获受理</td><td>把"设计合规"扩展到"批产一致性"</td></tr>
+            <tr><td>TC / PC 颁发</td><td class="num">—</td><td>截至 2026-11 均未取得</td><td class="bad">安全论证尚未被局方"接受"，只有"受理"</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">专用条件全文未公开，本页按 <b>SC-VTOL-01 与 CS-23 修正案 5 的通用做法</b>推定其定量目标，并明确标注。若最终条款对"私人娱乐"档位放宽，下列概率值需重算——但<b>方法论不变</b>。</p>
+
+      <h3 class="sec">严重度分级与目标失效概率</h3>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>严重度</th><th>对飞行器/乘员的后果</th><th>目标概率（/飞行小时）</th><th>软件等级 DO-178C</th><th>X3-F 上的典型对应（推定）</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge a">A 灾难性</span></td><td>机体损毁、多人死亡</td><td class="num">≤ 10⁻⁹</td><td class="num">DAL A</td><td>全部推力丧失、空中解体、空中误分离</td></tr>
+            <tr><td><span class="badge b">B 危险</span></td><td>大幅降低安全裕度、机组难以完成任务的伤害</td><td class="num">≤ 10⁻⁷</td><td class="num">DAL B</td><td>单套飞控失效但未失控、迫降</td></tr>
+            <tr><td><span class="badge c">C 重大</span></td><td>明显降低裕度、乘员不适或轻伤</td><td class="num">≤ 10⁻⁵</td><td class="num">DAL C</td><td>导航降级、非关键告警失效</td></tr>
+            <tr><td><span class="badge d">D 轻微</span></td><td>轻微降低裕度、操作性受影响</td><td class="num">≤ 10⁻³</td><td class="num">DAL D</td><td>座舱显示异常、舒适性功能失效</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 class="sec">同一件事，三套体系的三套说法</h3>
+      <p class="lead" style="margin-bottom:14px">这门课反复强调"车规级 → 航规级"的跃迁。落到纸面上，就是同一句"系统不能失效"在三个体系里对应完全不同的证据要求——这也是为什么新能源汽车的三电经验只能算 70% 同源，剩下的 30% 要重建。</p>
+      <div class="tbl-wrap">
+        <table>
+          <thead><tr><th>维度</th><th>汽车 · ISO 26262</th><th>航空 · ARP4754A / 4761</th><th>eVTOL · SC-VTOL-01</th></tr></thead>
+          <tbody>
+            <tr><td>等级语言</td><td>ASIL A–D</td><td>FDAL / IDAL A–E</td><td>Category Basic / Enhanced</td></tr>
+            <tr><td>顶层方法</td><td>HARA（S×E×C 定 ASIL）</td><td>FHA → PSSA → SSA</td><td>与 ARP4754A 同构，增加 VTOL 专用条款</td></tr>
+            <tr><td>定量目标</td><td>不直接给概率，靠流程与架构</td><td>按严重度给 10⁻⁹ / 10⁻⁷ / 10⁻⁵</td><td>灾难性 ≤10⁻⁹（与 ARP 一致）</td></tr>
+            <tr><td>共因</td><td>DFA（相关失效分析）</td><td>CCA（ZSA + CMA + PRA）</td><td>要求独立的 CCA 证据</td></tr>
+            <tr><td>软件</td><td>ISO 26262-6</td><td>DO-178C（DAL A–D）</td><td>同 DO-178C，含模型与工具鉴定</td></tr>
+            <tr><td>运行侧</td><td>道路/驾驶员/年检</td><td>运行规章 + 持续适航</td><td>起降场、空域、UTM 均需单独批准</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="grid g2" style="margin-top:16px">
+        <div class="card"><span class="tag red">关键差异</span><h4>汽车允许"失效后靠边停车"，飞机没有靠边</h4><p>地面交通的兜底是"减速停车"，这个动作几乎总在身边。飞行器的兜底只有"继续可控地飞"或"可控地落"——所以功能安全里的 fail-safe 概念，在航空里要换成 fail-operational，架构代价完全不同。</p></div>
+        <div class="card"><span class="tag">目标不是数字游戏</span><h4>10⁻⁹ 是预算，不是口号</h4><p>10⁻⁹ 是整机灾难性事件的总预算。所有单点失效、共因失效、运行差错都要在这个总额里分账。下一节开始，就是逐条分账。</p></div>
+      </div>
+<nav class="pager"><a href="system.html"><span class="dir">← 上一章</span><span class="t">系统与运行概念</span></a><a class="next" href="hazards.html"><span class="dir">下一章 →</span><span class="t">危害识别</span></a></nav>
+    <footer class="site">
+      <div>飞行汽车技术基础 · 课程作业-2 · 小鹏汇天「陆地航母」X3-F</div>
+      <div>单文件静态站点 · 零外部依赖 · 教学研究用途</div>
+    </footer>
+  </main>
+</div>
+<button id="top" title="回到顶部" aria-label="回到顶部">↑</button>
+<script src="assets/app.js" defer></script>
+</body>
+</html>
